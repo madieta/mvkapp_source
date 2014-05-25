@@ -1,0 +1,196 @@
+Ext.define('mvkapp.view.Main', {
+    extend: 'Ext.Container',
+    xtype: 'main',
+    requires: [
+        //'Ext.TitleBar',
+        'Ext.data.JsonP',
+        'Ext.Toolbar',
+        //'Ext.Img',
+        'Ext.Audio',
+        'mvkapp.view.FilterView'
+    ],
+    config: {
+
+
+    items: [
+        {
+            xtype: 'toolbar',
+            docked: 'top',
+            items: [
+                {
+                    xtype: 'textfield',
+                    label: 'Keywords:',
+                    width: '50%',
+                    id: 'field_tags'
+                },
+                {
+                    xtype: 'button',
+                    action: 'load_flickr',
+                    text: 'Play!'
+                },
+                {
+                    xtype: 'button',
+                    text: 'About',
+                    handler: function() {
+                        if (!this.overlay) {
+                            this.overlay = Ext.Viewport.add({
+                                xtype: 'panel',
+                                modal: true,
+                                hideOnMaskTap: true,
+                                showAnimation: {
+                                    type: 'popIn',
+                                    duration: 250,
+                                    easing: 'ease-out'
+                                },
+                                hideAnimation: {
+                                    type: 'popOut',
+                                    duration: 250,
+                                    easing: 'ease-out'
+                                }
+                                centered: true,
+                                width: '100%',
+                                height: '30%',
+                                html: 'lalala',
+                                items: [
+                                    {
+                                        docked: 'top',
+                                        xtype: 'toolbar',
+                                        title: 'About'
+                                    }
+                                ],
+                                scrollable: true
+                            });
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
+            scrollable: true,
+            id: 'bigpanel',
+            //styleHtmlContent: true,
+            height: '100%',
+            style: {
+                //backgroundImage: 'url("https://farm6.staticflickr.com/5190/14002309796_735ff50639_m.jpg")',
+                backgroundSize: 'contain',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+            },
+            items: [
+                {
+                    xtype: 'panel',
+                    id: 'debug_flickr',
+                    html: 'Debug flickr text will show here',
+                    hidden: true
+                },
+                {
+                    xtype: 'panel',
+                    id: 'debug_soundcloud',
+                    html: 'Debug soundclound text will show here',
+                    hidden: true
+                },
+                /*{
+                    xtype: 'panel',
+                    id: 'image',
+                    html: 'Picture will show here',
+                    hidden: false,
+                        height: '100%',
+                        width: '100%',
+                                            style: {
+
+                        backgroundSize: 'cover'
+                    }
+                },*/
+                {
+                    xtype: 'panel',
+                    docked: 'bottom',
+                    style: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)'
+                    },
+
+                    items: [
+                        {
+                            xtype: 'panel',
+                            id: 'image_id',
+                            html: '',
+                            hidden: true
+                        },
+                        {
+                            xtype: 'panel',
+                            id: 'error_msg',
+                            html: '',
+                            hidden: false,
+                            style: {
+                                color: 'red',
+                                textShadow: '0.1em 0.1em #000'
+                            },                        },
+                        {
+                            xtype: 'panel',
+                            id: 'image_info',
+                            html: '',
+                            hidden: false,
+                            style: {
+                                color: '#FFFFFF',
+                                textShadow: '0.1em 0.1em #000'
+                            },
+                        },
+                        {
+                            xtype: 'panel',
+                            id: 'image_tags',
+                            hidden: true
+                        },
+                        {
+                            xtype: 'panel',
+                            id: 'music_info',
+                            html: '',
+                            hidden: false,
+                            style: {
+                                color: '#FFFFFF',
+                                textShadow: '0.1em 0.1em #000'
+                            },
+                        },                    
+                        {
+                            xtype: 'panel',
+                            id: 'player_container',
+                            hidden: true,
+
+                                //items: Ext.os.is.Android ? [
+                                items: [
+                                    {
+                                        xtype: 'audio',
+                                        id: 'player',
+                                        url: '',
+                                        hidden: true
+                                    },
+                                    {
+                                        xtype: 'button',
+                                        action: 'play_music',
+                                        text: 'Play',
+                                        width: '100px'
+                                    },
+                                    {
+                                        html: "Sometimes music won't play due to some soundclound bug. Sorry and try again with other keywords",
+                                        style: {
+                                            color: '#FFFFFF',
+                                            textShadow: '0.1em 0.1em #000'
+                                        }
+                                    }
+                                ] /*: [ 
+                                    {
+                                        xtype: 'audio',
+                                        id: 'player',
+                                        url: '',
+                                        hidden: false,
+                                        width: '50%'
+                                    }
+                                ]*/
+                            
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    }
+});
